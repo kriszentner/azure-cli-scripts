@@ -50,8 +50,8 @@ padding="2"
 location="westus2"
 image="Canonical:UbuntuServer:16.04-LTS:latest"
 # Set this to 0 if you don't want data disks
-numdatadisks="4"
-datadisksize="4095"
+numdatadisks="1"
+datadisksize="1024"
 # Run Custom Script?
 install_script="YES"
 # Enable diagnostics storage account?
@@ -91,6 +91,7 @@ echo "Starting NIC Creation..."
 seq -f "%0${padding}g" $seqstart $numvms|parallel $numjobs "
 echo '[$prefix{}] Creating NIC...'
 az network nic create -g $rg -n $prefix{}-nic --subnet '$subnet_id'"
+
 # Lets make our VMs in parallel
 echo "Starting VM Creation..."
 seq -f "%0${padding}g" $seqstart $numvms|parallel $numjobs "
@@ -107,6 +108,7 @@ az vm create -g $rg \
   --authentication-type password \
   --admin-password '$myvmpass'
 "
+
 # Install Custom Script in parallel
 if [ "$install_script" == "YES" ];then
   echo "Starting Custom Script Installation..."
@@ -121,6 +123,7 @@ if [ "$install_script" == "YES" ];then
   --protected-settings ./protected.json \
   --settings ./azureinstall.json"
 fi
+
 # Apply diagnostics in parallel
 if [ "$enable_diag" == "YES" ];then
   #See https://docs.microsoft.com/en-us/cli/azure/vm/diagnostics?view=azure-cli-latest#az_vm_diagnostics_set
@@ -147,5 +150,6 @@ if [ "$enable_diag" == "YES" ];then
   export -f enable_diag
   seq -f "%0${padding}g" $seqstart $numvms|parallel $numjobs "enable_diag {}"
 fi
+
 # Remove the temp dir if empty
 rmdir tmp
