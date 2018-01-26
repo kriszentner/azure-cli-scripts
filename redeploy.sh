@@ -18,7 +18,7 @@ SUBSCRIPTION="my subscription"
 az account set --subscription "$SUBSCRIPTION"
 AVSET=$(az vm show -g $RG -n $VMNAME |jq -r '.availabilitySet.id'|awk -F/ '{ print $NF }')
 OSDISK=$(az vm show -g $RG -n $VMNAME |jq -r '.storageProfile.osDisk.managedDisk.id')
-DATADISKS=$(az vm show -g $RG -n $VMNAME |jq -r '.storageProfile.dataDisks'|jq '.[].name'|tr '\n' ' ')
+DATADISKS=$(az vm show -g $RG -n $VMNAME |jq '.storageProfile.dataDisks'|jq -r '.[].name'|tr '\n' ' ')
 OSDISKNAME=$(echo $OSDISK|awk -F/ '{ print $NF }')
 NIC=$(az vm show -g $RG -n $VMNAME |jq '.networkProfile.networkInterfaces'|jq -r '.[0].id'|awk -F/ '{ print $NF }')
 LOCATION=$(az vm show -g $RG -n $VMNAME |jq -r '.location')
