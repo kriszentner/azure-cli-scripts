@@ -3,8 +3,8 @@
 # Author: Kris Zentner
 # Date January, 2018
 #
-# This is meant to reallocate a hung Azure Linux VM, similar to the "reallocate" 
-# portal command, but this seems to work better in most cases.
+# This is meant to reallocate a hung Azure Linux VM, similar to the "redeploy" 
+# Azure portal command, but this seems to work better in most cases.
 # Dependencies:
 # jq
 # azure cli https://github.com/Azure/azure-cli
