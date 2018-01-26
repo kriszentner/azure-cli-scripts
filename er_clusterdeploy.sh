@@ -60,7 +60,7 @@ enable_diag="YES"
 numjobs=""
 export diagstorageacct="${rg}diag"
 vmusername="ubuntu"
-myvm=`cat ./myvm.pass`
+myvmpass=`cat ./myvm.pass`
 # If you want manually specified different disks, set numdatadisks="OVERRIDE"
 # and can set the below to something like: diskvar="--data-disk-sizes-gb 1024 10 5"
 if [ "$numdatadisks" -ne "0" ];then
