@@ -13,13 +13,13 @@ VMNAME="myvm"
 RG="my_rg"
 SUBSCRIPTION="my subscription"
 az account set --subscription "$SUBSCRIPTION"
-AVSET=$(az vm show -g $RG -n $VMNAME |jq '.availabilitySet.id'|awk -F/ '{ print $NF }'|sed 's/"//g')
-OSDISK=$(az vm show -g $RG -n $VMNAME |jq '.storageProfile.osDisk.managedDisk.id'|sed 's/"//g')
-DATADISKS=$(az vm show -g $RG -n $VMNAME |jq '.storageProfile.dataDisks'|jq '.[].name'|sed 's/"//g'|tr '\n' ' ')
+AVSET=$(az vm show -g $RG -n $VMNAME |jq -r '.availabilitySet.id'|awk -F/ '{ print $NF }')
+OSDISK=$(az vm show -g $RG -n $VMNAME |jq -r '.storageProfile.osDisk.managedDisk.id')
+DATADISKS=$(az vm show -g $RG -n $VMNAME |jq -r '.storageProfile.dataDisks'|jq '.[].name'|tr '\n' ' ')
 OSDISKNAME=$(echo $OSDISK|awk -F/ '{ print $NF }')
-NIC=$(az vm show -g $RG -n $VMNAME |jq '.networkProfile.networkInterfaces'|jq '.[0].id'|awk -F/ '{ print $NF }'|sed 's/"//g')
-LOCATION=$(az vm show -g $RG -n $VMNAME |jq '.location'|sed 's/"//g')
-SIZE=$(az vm show -g $RG -n $VMNAME |jq '.hardwareProfile.vmSize'|sed 's/"//g')
+NIC=$(az vm show -g $RG -n $VMNAME |jq '.networkProfile.networkInterfaces'|jq -r '.[0].id'|awk -F/ '{ print $NF }')
+LOCATION=$(az vm show -g $RG -n $VMNAME |jq -r '.location')
+SIZE=$(az vm show -g $RG -n $VMNAME |jq -r '.hardwareProfile.vmSize')
 echo "Removing old VM $VMNAME"
 az vm delete -g $RG -n $VMNAME --yes
 # If you want to attach a disk to another VM
