@@ -8,6 +8,7 @@
 # Dependencies:
 # jq
 # azure cli https://github.com/Azure/azure-cli
+#
 # Not responsible for any damages as a result of using this script!
 # Test it yourself before using.
 #
