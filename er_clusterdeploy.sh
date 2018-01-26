@@ -18,6 +18,7 @@
 # If you're not using ssh keys, you'll need to put your vm's password
 # in ./myvm.pass 
 #
+# I tend to use a custom script to install Chef at boot time.
 # If you have a custom script in an Azure blob you'll need to create a ./protected.json
 # like so:
 # {
@@ -51,7 +52,7 @@ image="Canonical:UbuntuServer:16.04-LTS:latest"
 # Set this to 0 if you don't want data disks
 numdatadisks="4"
 datadisksize="4095"
-# Install Chef?
+# Run Custom Script?
 install_script="YES"
 # Enable diagnostics storage account?
 enable_diag="YES"
