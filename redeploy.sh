@@ -5,7 +5,9 @@
 #
 # This is meant to reallocate a hung Azure Linux VM, similar to the "reallocate" 
 # portal command, but this seems to work better in most cases.
-# This uses jq as a dependency, so be sure to install it.
+# Dependencies:
+# jq
+# azure cli https://github.com/Azure/azure-cli
 # Not responsible for any damages as a result of using this script!
 # Test it yourself before using.
 #
